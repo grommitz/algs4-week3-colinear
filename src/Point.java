@@ -4,7 +4,21 @@ import java.util.Comparator;
 public class Point implements Comparable<Point> {
 	
 	// compare points by slope to this point
-	public final Comparator<Point> SLOPE_ORDER = Comparator<Point>        
+	public final Comparator<Point> SLOPE_ORDER = new Comparator<Point>() {
+		@Override
+		public int compare(Point p1, Point p2) {
+			Point p0 = new Point(x, y);
+			double s1 = p0.slopeTo(p1);
+			double s2 = p0.slopeTo(p2);
+			System.out.println("s1=" + s1 + ", s2=" + s2);
+			if (s1 == s2)
+				return 0;
+			else if (s1 < s2)
+				return -1;
+			else
+				return 1;
+		}		
+	};
 	
 	private final int x;
 	private final int y;
@@ -42,12 +56,13 @@ public class Point implements Comparable<Point> {
 	// the slope between this point and that point
 	public double slopeTo(Point that) {
 		if (this.x == that.x) {
-			return Double.POSITIVE_INFINITY;
+			if (this.y == that.y) {
+				return Double.NEGATIVE_INFINITY;
+			} else {
+				return Double.POSITIVE_INFINITY;
+			}
 		}
-		if (this.x == that.x && this.y == that.y) {
-			return -Double.NEGATIVE_INFINITY;
-		}
-		double s = Math.abs(that.y - this.y) / Math.abs(that.x - this.x);
+		double s = (double)(that.y - this.y) / (that.x - this.x);
 		return s;
 	}
 	
