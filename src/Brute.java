@@ -22,6 +22,8 @@ public class Brute {
 			System.err.println("Usage: java Brute <input file>");
 			return;
 		}
+		StdDraw.setXscale(0, 32768);
+		StdDraw.setYscale(0, 32768);
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(args[0]);
@@ -32,6 +34,17 @@ public class Brute {
 		}
 	}
 
+	/**
+	 * Main methood:
+	 * - read the points from the input file
+	 * - find the lines of 4 colinear points
+	 * - print them to std out in the prescribed format
+	 * - draw them to StdDraw.
+	 * 
+	 * @param is
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	private void run(InputStream is) throws NumberFormatException, IOException {
 		Point[] points = readFile(is);
 		List<Point[]> lines = findLines(points);
@@ -41,8 +54,15 @@ public class Brute {
 		}
 	}
 
-	// perm 4 from N
-	// eg: perm 4 from 6 = 15 combinations ( 6 * 5 * 4 * 3) / (4 * 3 * 2 * 1)
+	/**
+	 * Find all sets of 4 colinear points in the entire set by using brute force to iterate thru
+	 * every permutation of points.
+	 * perm 4 from N
+	 * eg: perm 4 from 6 = 15 combinations ( 6 * 5 * 4 * 3) / (4 * 3 * 2 * 1)
+	 * 
+	 * @param points
+	 * @return
+	 */
 	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<Point[]>();
 		for (int i = 0; i < points.length; ++i) {
@@ -61,7 +81,12 @@ public class Brute {
 		}
 		return lines;
 	}
-	
+
+	/**
+	 * for testing
+	 * @param line
+	 * @return
+	 */
 	String toString(Point[] line) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < line.length; ++i) {
@@ -77,8 +102,6 @@ public class Brute {
 	}
 
 	private void draw(Point[] line) {
-		StdDraw.setXscale(0, 32768);
-		StdDraw.setYscale(0, 32768);
 		for (int i = 0; i < line.length; ++i) {
 			line[i].draw();
 			if (i + 1 < line.length) {
@@ -104,6 +127,13 @@ public class Brute {
 		return line;
 	}
 
+	/**
+	 * visible for testing
+	 * @param is
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	Point[] readFile(InputStream is) throws NumberFormatException, IOException {
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
 			int num = Integer.parseInt(reader.readLine());
