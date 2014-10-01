@@ -65,6 +65,25 @@ public class Point implements Comparable<Point> {
 		double s = (double)(that.y - this.y) / (that.x - this.x);
 		return s;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Point that = (Point) obj;
+		return this.x == that.x && this.y == that.y;
+	}
+	
 	
 }
 
