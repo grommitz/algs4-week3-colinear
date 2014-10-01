@@ -62,7 +62,7 @@ public class Point implements Comparable<Point> {
 				return Double.POSITIVE_INFINITY;
 			}
 		}
-		double s = (double)(that.y - this.y) / (that.x - this.x);
+		double s = (double)(that.y - this.y) / (double) (that.x - this.x);
 		return s;
 	}
 
@@ -82,6 +82,10 @@ public class Point implements Comparable<Point> {
 		}
 		Point that = (Point) obj;
 		return this.x == that.x && this.y == that.y;
+	}
+	
+	double distanceFromOrigin() {
+		return Math.sqrt(Math.pow(x, 2.0) + Math.pow(y, 2.0));
 	}
 	
 	
