@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -112,18 +113,7 @@ public class Brute {
 
 	private Point[] toLine(Point p0, Point p1, Point p2, Point p3) {
 		Point[] line = new Point[]{p0, p1, p2, p3};
-		Insertion.sort(line, new Comparator<Point>() {
-			@Override
-			public int compare(Point p0, Point p1) {
-				double diff = p0.distanceFromOrigin() - p1.distanceFromOrigin();
-				if (diff == 0)
-					return 0;
-				else if (diff < 0)
-					return -1;
-				else
-					return 1;
-			}
-		});
+		Arrays.sort(line);
 		return line;
 	}
 

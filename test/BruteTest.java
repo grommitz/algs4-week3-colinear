@@ -26,7 +26,7 @@ public class BruteTest {
 	}
 	
 	@Test
-	public void testFindLines() throws NumberFormatException, IOException {
+	public void testFindLinesInput6() throws NumberFormatException, IOException {
 		using("input6.txt");
 		Point[] line = new Point[]{new Point(18000, 10000), 
 				new Point(19000, 10000), 
@@ -56,7 +56,9 @@ public class BruteTest {
 		String lineStr = brute.toString(expectedLine);
 		boolean found = false;
 		for (Point[] line_ : lines) {
-			if (brute.toString(line_).equals(lineStr)) {
+			String actual = brute.toString(line_);
+			System.out.println(actual);
+			if (actual.equals(lineStr)) {
 				found = true;
 			}
 		}
