@@ -125,16 +125,13 @@ public class Brute {
 	 * @throws IOException
 	 */
 	Point[] readFile(InputStream is) throws NumberFormatException, IOException {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
-			int num = Integer.parseInt(reader.readLine());
+		try (Scanner s = new Scanner(is)) {
+			int num = s.nextInt();
 			Point[] points = new Point[num];
 			for (int i = 0; i < num; ++i) {
-				String line = reader.readLine();
-				try (Scanner s = new Scanner(line)) {
-					int x = s.nextInt();
-					int y = s.nextInt();
-					points[i] = new Point(x, y);
-				}
+				int x = s.nextInt();
+				int y = s.nextInt();
+				points[i] = new Point(x, y);
 			}
 			return points;
 		}
