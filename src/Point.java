@@ -20,27 +20,6 @@ public class Point implements Comparable<Point> {
 		}		
 	};
 
-	public final Comparator<Point> BY_DISTANCE = new Comparator<Point>() {
-		@Override
-		public int compare(Point p1, Point p2) {
-			double d1 = dist(p1), d2 = dist(p2);
-			if (d1 == d2) {
-				return 0;
-			} else if (d1 < d2) {
-				return -1;
-			}
-			return 1;
-		}
-		private double dist(Point p1) {
-			int dx = x - p1.x;
-			int dy = y - p1.y;
-			double d = Math.sqrt(Math.pow(dx, 2.0) + Math.pow(dy, 2.0));
-			System.out.println("dist "+new Point(x,y)+" to "+p1+" = "+d);
-			return d;
-		}
-		
-	};
-
 	private final int x;
 	private final int y;
 
@@ -86,29 +65,6 @@ public class Point implements Comparable<Point> {
 		double s = (double)(that.y - this.y) / (double) (that.x - this.x);
 		return s;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + x;
-		result = prime * result + y;
-		return result;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		Point that = (Point) obj;
-		return this.x == that.x && this.y == that.y;
-	}
-	
-	double distanceFromOrigin() {
-		return Math.sqrt(Math.pow(x, 2.0) + Math.pow(y, 2.0));
-	}
-	
 	
 }
 

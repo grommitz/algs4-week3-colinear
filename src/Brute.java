@@ -42,7 +42,7 @@ public class Brute {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	protected void run(InputStream is) throws NumberFormatException, IOException {
+	private void run(InputStream is) throws NumberFormatException, IOException {
 		Point[] points = readFile(is);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
@@ -60,7 +60,7 @@ public class Brute {
 	 * @param points
 	 * @return
 	 */
-	List<Point[]> findLines(Point[] points) {
+	private List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<Point[]>();
 		for (int i = 0; i < points.length; ++i) {
 			for (int j = i + 1; j < points.length; ++j) {
@@ -79,11 +79,11 @@ public class Brute {
 		return lines;
 	}
 
-	protected void print(Point[] line) {
+	private void print(Point[] line) {
 		System.out.println(toString(line));
 	}
 
-	protected void draw(Point[] line) {
+	private void draw(Point[] line) {
 		for (int i = 0; i < line.length; ++i) {
 			line[i].draw();
 			if (i + 1 < line.length) {
@@ -92,7 +92,7 @@ public class Brute {
 		}
 	}
 
-	protected Point[] toLine(Point p0, Point... theRest) {
+	private Point[] toLine(Point p0, Point... theRest) {
 		assert(theRest.length >= 3);
 		Point[] line = new Point[1 + theRest.length];
 		line[0] = p0;
@@ -109,7 +109,7 @@ public class Brute {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	Point[] readFile(InputStream is) throws NumberFormatException, IOException {
+	private Point[] readFile(InputStream is) throws NumberFormatException, IOException {
 		try (Scanner s = new Scanner(is)) {
 			int num = s.nextInt();
 			Point[] points = new Point[num];
@@ -122,12 +122,7 @@ public class Brute {
 		}
 	}
 
-	/**
-	 * for testing
-	 * @param line
-	 * @return
-	 */
-	protected String toString(Point[] line) {
+	private String toString(Point[] line) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < line.length; ++i) {
 			sb.append(line[i].toString());

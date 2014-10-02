@@ -3,10 +3,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
+import java.util.Scanner;
 
 /**
  * A more intelligent way of finding 4-point segments than Brute force.
@@ -14,7 +12,7 @@ import java.util.Set;
  * @author Martin Charlesworth
  *
  */
-public class Fast extends Brute {
+public class Fast {
 
 	public static void main(String[] args) {
 		if (args.length != 1) {
@@ -31,8 +29,7 @@ public class Fast extends Brute {
 		}
 	}
 	
-	@Override
-	protected void run(InputStream is) throws NumberFormatException, IOException {
+	private void run(InputStream is) throws NumberFormatException, IOException {
 		Point[] points = readFile(is);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
@@ -41,7 +38,7 @@ public class Fast extends Brute {
 		}
 	}
 
-	List<Point[]> findLines(Point[] points) {
+	private List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<>();
 		for (int p = 0; p < points.length; ++p) {
 			Point origin = points[p];
@@ -68,14 +65,58 @@ public class Fast extends Brute {
 		return lines;
 	}
 	
-	private Point[] pointsWithout(Point[] all, Point withoutMe) {
-		Set<Point> set = new HashSet<Point>(Arrays.asList(all));
-		set.remove(withoutMe);
-		return set.toArray(new Point[]{});
+	private void print(Point[] line) {
+		System.out.println(toString(line));
 	}
-	
-	
-	
-	
+
+	private void draw(Point[] line) {
+		for (int i = 0; i < line.length; ++i) {
+			line[i].draw();
+			if (i + 1 < line.length) {
+				line[i].drawTo(line[i + 1]);
+			}
+		}
+	}
+
+	private Point[] toLine(Point p0, Point... theRest) {
+		assert(theRest.length >= 3);
+		Point[] line = new Point[1 + theRest.length];
+		line[0] = p0;
+		for (int i = 0; i < theRest.length; ++i)
+			line[i+1] = theRest[i];
+		Arrays.sort(line);
+		return line;
+	}
+
+	/**
+	 * visible for testing
+	 * @param is
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
+	private Point[] readFile(InputStream is) throws NumberFormatException, IOException {
+		try (Scanner s = new Scanner(is)) {
+			int num = s.nextInt();
+			Point[] points = new Point[num];
+			for (int i = 0; i < num; ++i) {
+				int x = s.nextInt();
+				int y = s.nextInt();
+				points[i] = new Point(x, y);
+			}
+			return points;
+		}
+	}
+
+	private String toString(Point[] line) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < line.length; ++i) {
+			sb.append(line[i].toString());
+			if (i + 1 < line.length)
+				sb.append(" -> ");
+		}
+		return sb.toString();
+	}
+
 	
 }
