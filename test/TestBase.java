@@ -12,15 +12,15 @@ public class TestBase {
 	
 	protected void using(String file) throws NumberFormatException, IOException {
 		InputStream is = getClass().getResourceAsStream(file);
-		points = Util.readFile(is);
+		points = new Brute().readFile(is);
 	}
 
 	protected void assertNumberOfLinesAndSpecificLineFound(List<Point[]> lines, int numLines, Point[] expectedLine) {
 		assertThat(lines.size(), is(numLines));
-		String lineStr = Util.toString(expectedLine);
+		String lineStr = new Brute().toString(expectedLine);
 		boolean found = false;
 		for (Point[] line_ : lines) {
-			String actual = Util.toString(line_);
+			String actual = new Brute().toString(line_);
 			if (actual.equals(lineStr)) {
 				found = true;
 			}

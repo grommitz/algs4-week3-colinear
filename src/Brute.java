@@ -42,12 +42,12 @@ public class Brute {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	private void run(InputStream is) throws NumberFormatException, IOException {
-		Point[] points = Util.readFile(is);
+	protected void run(InputStream is) throws NumberFormatException, IOException {
+		Point[] points = readFile(is);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
-			Util.print(line);
-			Util.draw(line);
+			print(line);
+			draw(line);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Brute {
 						Point p0 = points[i], p1 = points[j], p2 = points[k], p3 = points[l];
 						double s1 = p0.slopeTo(p1);
 						if (s1 == p0.slopeTo(p2) && s1 == p0.slopeTo(p3)) {
-							Point[] line = Util.toLine(p0, p1, p2, p3);
+							Point[] line = toLine(p0, p1, p2, p3);
 							lines.add(line);
 						}
 					}
@@ -79,4 +79,61 @@ public class Brute {
 		return lines;
 	}
 
+	protected void print(Point[] line) {
+		System.out.println(toString(line));
+	}
+
+	protected void draw(Point[] line) {
+		for (int i = 0; i < line.length; ++i) {
+			line[i].draw();
+			if (i + 1 < line.length) {
+				line[i].drawTo(line[i + 1]);
+			}
+		}
+	}
+
+	protected Point[] toLine(Point p0, Point... theRest) {
+		assert(theRest.length >= 3);
+		Point[] line = new Point[1 + theRest.length];
+		line[0] = p0;
+		for (int i = 0; i < theRest.length; ++i)
+			line[i+1] = theRest[i];
+		Arrays.sort(line);
+		return line;
+	}
+
+	/**
+	 * visible for testing
+	 * @param is
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
+	Point[] readFile(InputStream is) throws NumberFormatException, IOException {
+		try (Scanner s = new Scanner(is)) {
+			int num = s.nextInt();
+			Point[] points = new Point[num];
+			for (int i = 0; i < num; ++i) {
+				int x = s.nextInt();
+				int y = s.nextInt();
+				points[i] = new Point(x, y);
+			}
+			return points;
+		}
+	}
+
+	/**
+	 * for testing
+	 * @param line
+	 * @return
+	 */
+	protected String toString(Point[] line) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < line.length; ++i) {
+			sb.append(line[i].toString());
+			if (i + 1 < line.length)
+				sb.append(" -> ");
+		}
+		return sb.toString();
+	}
 }

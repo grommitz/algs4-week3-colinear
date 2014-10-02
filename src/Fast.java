@@ -14,7 +14,7 @@ import java.util.Set;
  * @author Martin Charlesworth
  *
  */
-public class Fast {
+public class Fast extends Brute {
 
 	public static void main(String[] args) {
 		if (args.length != 1) {
@@ -31,12 +31,13 @@ public class Fast {
 		}
 	}
 	
-	void run(InputStream is) throws NumberFormatException, IOException {
-		Point[] points = Util.readFile(is);
+	@Override
+	protected void run(InputStream is) throws NumberFormatException, IOException {
+		Point[] points = readFile(is);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
-			Util.print(line);
-			Util.draw(line);
+			print(line);
+			draw(line);
 		}
 	}
 
@@ -56,7 +57,7 @@ public class Fast {
 				} else {
 					if (counter >= 3) {
 						Point[] pts = Arrays.copyOfRange(others, i-counter, i);
-						Point[] line = Util.toLine(origin, pts);
+						Point[] line = toLine(origin, pts);
 						lines.add(line);
 					}
 					prev = slope;

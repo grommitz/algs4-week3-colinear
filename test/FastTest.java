@@ -26,7 +26,7 @@ public class FastTest extends TestBase {
 				new Point(32000, 10000)};
 		List<Point[]> lines = fast.findLines(points);
 		for (Point[] l : lines)
-			Util.print(l);
+			fast.print(l);
 		assertNumberOfLinesAndSpecificLineFound(lines, 1, line);
 	}
 
@@ -40,7 +40,7 @@ public class FastTest extends TestBase {
 				new Point(0, 10000)};
 		List<Point[]> lines = fast.findLines(points);
 		for (Point[] l : lines)
-			Util.print(l);
+			fast.print(l);
 		assertNumberOfLinesAndSpecificLineFound(lines, 1, line);
 	}
 
