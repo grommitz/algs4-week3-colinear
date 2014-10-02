@@ -12,10 +12,9 @@ import org.junit.Test;
  * @author Martin Charlesworth
  *
  */
-public class BruteTest {
+public class BruteTest extends TestBase {
 
 	private Brute brute = new Brute();
-	private Point[] points;
 
 	@Test
 	public void testReadFile() throws NumberFormatException, IOException {
@@ -32,7 +31,7 @@ public class BruteTest {
 				new Point(19000, 10000), 
 				new Point(21000, 10000), 
 				new Point(32000, 10000)};
-		assertNumberOfLinesAndSpecificLineFound(5, line);
+		assertNumberOfLinesAndSpecificLineFound(brute.findLines(points), 5, line);
 	}
 	
 	@Test
@@ -42,27 +41,9 @@ public class BruteTest {
 				new Point(7000, 3000),
 				new Point(3000, 7000),
 				new Point(0, 10000)};
-		assertNumberOfLinesAndSpecificLineFound(2, line);
+		assertNumberOfLinesAndSpecificLineFound(brute.findLines(points), 2, line);
 	}
 
-	private void using(String file) throws NumberFormatException, IOException {
-		InputStream is = getClass().getResourceAsStream(file);
-		points = brute.readFile(is);
-	}
 
-	private void assertNumberOfLinesAndSpecificLineFound(int numLines, Point[] expectedLine) {
-		List<Point[]> lines = brute.findLines(points);
-		assertThat(lines.size(), is(numLines));
-		String lineStr = brute.toString(expectedLine);
-		boolean found = false;
-		for (Point[] line_ : lines) {
-			String actual = brute.toString(line_);
-			System.out.println(actual);
-			if (actual.equals(lineStr)) {
-				found = true;
-			}
-		}
-		assertThat("Did not find " + lineStr, found, is(true));
-	}
 
 }

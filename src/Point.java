@@ -10,7 +10,7 @@ public class Point implements Comparable<Point> {
 			Point p0 = new Point(x, y);
 			double s1 = p0.slopeTo(p1);
 			double s2 = p0.slopeTo(p2);
-			System.out.println("s1=" + s1 + ", s2=" + s2);
+			//System.out.println("s1=" + s1 + ", s2=" + s2);
 			if (s1 == s2)
 				return 0;
 			else if (s1 < s2)
