@@ -1,6 +1,5 @@
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Brute {
 		try (FileInputStream fis = new FileInputStream(args[0])) {
 			Brute brute = new Brute();
 			brute.run(fis);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -42,7 +41,7 @@ public class Brute {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	private void run(InputStream is) throws NumberFormatException, IOException {
+	private void run(InputStream is) throws IOException {
 		Point[] points = readFile(is);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
@@ -60,7 +59,8 @@ public class Brute {
 	 * @param points
 	 * @return
 	 */
-	private List<Point[]> findLines(Point[] points) {
+	private
+	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<Point[]>();
 		for (int i = 0; i < points.length; ++i) {
 			for (int j = i + 1; j < points.length; ++j) {
@@ -83,6 +83,16 @@ public class Brute {
 		System.out.println(toString(line));
 	}
 
+	private String toString(Point[] line) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < line.length; ++i) {
+			sb.append(line[i].toString());
+			if (i + 1 < line.length)
+				sb.append(" -> ");
+		}
+		return sb.toString();
+	}
+	
 	private void draw(Point[] line) {
 		for (int i = 0; i < line.length; ++i) {
 			line[i].draw();
@@ -93,7 +103,7 @@ public class Brute {
 	}
 
 	private Point[] toLine(Point p0, Point... theRest) {
-		assert(theRest.length >= 3);
+		assert (theRest.length >= 3);
 		Point[] line = new Point[1 + theRest.length];
 		line[0] = p0;
 		for (int i = 0; i < theRest.length; ++i)
@@ -109,7 +119,8 @@ public class Brute {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	private Point[] readFile(InputStream is) throws NumberFormatException, IOException {
+	private
+	Point[] readFile(InputStream is) throws IOException {
 		try (Scanner s = new Scanner(is)) {
 			int num = s.nextInt();
 			Point[] points = new Point[num];
@@ -122,13 +133,4 @@ public class Brute {
 		}
 	}
 
-	private String toString(Point[] line) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < line.length; ++i) {
-			sb.append(line[i].toString());
-			if (i + 1 < line.length)
-				sb.append(" -> ");
-		}
-		return sb.toString();
-	}
 }

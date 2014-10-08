@@ -24,12 +24,12 @@ public class Fast {
 		try (FileInputStream fis = new FileInputStream(args[0])) {
 			Fast fast = new Fast();
 			fast.run(fis);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void run(InputStream is) throws NumberFormatException, IOException {
+	private void run(InputStream is) throws IOException {
 		Point[] points = readFile(is);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
@@ -38,7 +38,7 @@ public class Fast {
 		}
 	}
 
-	private List<Point[]> findLines(Point[] points) {
+	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<>();
 		for (int p = 0; p < points.length; ++p) {
 			Point origin = points[p];
@@ -79,7 +79,7 @@ public class Fast {
 	}
 
 	private Point[] toLine(Point p0, Point... theRest) {
-		assert(theRest.length >= 3);
+		assert (theRest.length >= 3);
 		Point[] line = new Point[1 + theRest.length];
 		line[0] = p0;
 		for (int i = 0; i < theRest.length; ++i)
@@ -95,7 +95,7 @@ public class Fast {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	private Point[] readFile(InputStream is) throws NumberFormatException, IOException {
+	private Point[] readFile(InputStream is) throws IOException {
 		try (Scanner s = new Scanner(is)) {
 			int num = s.nextInt();
 			Point[] points = new Point[num];

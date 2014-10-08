@@ -38,4 +38,11 @@ public class PointTest {
 		assertThat(new Point(0,0).SLOPE_ORDER.compare(new Point(10,0),new Point(-10,1)), is(1));
 		assertThat(new Point(0,0).SLOPE_ORDER.compare(new Point(10,0),new Point(-10,-1)), is(-1));
 	}
+	
+	@Test
+	public void test1() {
+		assertThat (new Point(416, 149).slopeTo(new Point(115, 149)), is(0.0));
+		assertThat (new Point(22217, 20089).slopeTo(new  Point(12726, 20089)), is(0.0));
+	}
+
 }

@@ -1,4 +1,3 @@
-import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,7 +5,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * 
+ * @author Martin Charlesworth
+ *
+ */
 public class FastTest extends TestBase {
 
 	private Fast fast = new Fast();
@@ -26,7 +29,7 @@ public class FastTest extends TestBase {
 				new Point(32000, 10000)};
 		List<Point[]> lines = fast.findLines(points);
 		for (Point[] l : lines)
-			fast.print(l);
+			System.out.println(toString(l));
 		assertNumberOfLinesAndSpecificLineFound(lines, 1, line);
 	}
 
@@ -40,7 +43,7 @@ public class FastTest extends TestBase {
 				new Point(0, 10000)};
 		List<Point[]> lines = fast.findLines(points);
 		for (Point[] l : lines)
-			fast.print(l);
+			System.out.println(toString(l));
 		assertNumberOfLinesAndSpecificLineFound(lines, 1, line);
 	}
 
