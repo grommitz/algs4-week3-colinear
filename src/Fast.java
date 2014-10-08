@@ -38,6 +38,7 @@ public class Fast {
 		}
 	}
 
+	private
 	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<>();
 		for (int p = 0; p < points.length; ++p) {
