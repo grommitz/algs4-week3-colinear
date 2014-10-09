@@ -28,8 +28,10 @@ public class TestBase {
 		boolean found = false;
 		for (Point[] line_ : lines) {
 			String actual = toString(line_);
+			System.out.println(actual);
 			if (actual.equals(lineStr)) {
 				found = true;
+				break;
 			}
 		}
 		assertThat("Did not find " + lineStr, found, is(true));

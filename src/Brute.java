@@ -31,7 +31,7 @@ public class Brute {
 	}
 
 	/**
-	 * Main methood:
+	 * Main method:
 	 * - read the points from the input file
 	 * - find the lines of 4 colinear points
 	 * - print them to std out in the prescribed format
@@ -43,10 +43,11 @@ public class Brute {
 	 */
 	private void run(InputStream is) throws IOException {
 		Point[] points = readFile(is);
+		drawPoints(points);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
 			print(line);
-			draw(line);
+			drawLine(line);
 		}
 	}
 
@@ -59,7 +60,7 @@ public class Brute {
 	 * @param points
 	 * @return
 	 */
-	private
+	private 
 	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<Point[]>();
 		for (int i = 0; i < points.length; ++i) {
@@ -93,13 +94,13 @@ public class Brute {
 		return sb.toString();
 	}
 	
-	private void draw(Point[] line) {
-		for (int i = 0; i < line.length; ++i) {
-			line[i].draw();
-			if (i + 1 < line.length) {
-				line[i].drawTo(line[i + 1]);
-			}
-		}
+	private void drawPoints(Point[] points) {
+		for (Point p : points)
+			p.draw();
+	}
+
+	private void drawLine(Point[] line) {
+		line[0].drawTo(line[line.length - 1]);
 	}
 
 	private Point[] toLine(Point p0, Point... theRest) {

@@ -31,10 +31,11 @@ public class Fast {
 	
 	private void run(InputStream is) throws IOException {
 		Point[] points = readFile(is);
+		drawPoints(points);
 		List<Point[]> lines = findLines(points);
 		for (Point[] line : lines) {
 			print(line);
-			draw(line);
+			drawLine(line);
 		}
 	}
 
@@ -70,13 +71,13 @@ public class Fast {
 		System.out.println(toString(line));
 	}
 
-	private void draw(Point[] line) {
-		for (int i = 0; i < line.length; ++i) {
-			line[i].draw();
-			if (i + 1 < line.length) {
-				line[i].drawTo(line[i + 1]);
-			}
-		}
+	private void drawPoints(Point[] points) {
+		for (Point p : points)
+			p.draw();
+	}
+
+	private void drawLine(Point[] line) {
+		line[0].drawTo(line[line.length - 1]);
 	}
 
 	private Point[] toLine(Point p0, Point... theRest) {
