@@ -39,7 +39,7 @@ public class Fast {
 		}
 	}
 
-	private
+	//private
 	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<>();
 		List<Integer> hashes = new ArrayList<>();

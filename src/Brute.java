@@ -60,7 +60,7 @@ public class Brute {
 	 * @param points
 	 * @return
 	 */
-	private 
+	//private 
 	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<Point[]>();
 		for (int i = 0; i < points.length; ++i) {
@@ -120,7 +120,7 @@ public class Brute {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	private
+	//private
 	Point[] readFile(InputStream is) throws IOException {
 		try (Scanner s = new Scanner(is)) {
 			int num = s.nextInt();
