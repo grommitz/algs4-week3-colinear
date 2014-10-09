@@ -42,25 +42,44 @@ public class Fast {
 	private
 	List<Point[]> findLines(Point[] points) {
 		List<Point[]> lines = new ArrayList<>();
+		List<Integer> hashes = new ArrayList<>();
+		Point[] others = Arrays.copyOf(points, points.length);
 		for (int p = 0; p < points.length; ++p) {
 			Point origin = points[p];
-			Point[] others = Arrays.copyOfRange(points, p+1, points.length); // pointsWithout(points, origin);
+			System.out.println("origin = " + origin);
 			Arrays.sort(others, origin.SLOPE_ORDER);
-			double prev = -1.0;
+			double prev = 0;
 			int counter = 0;
+			
 			for (int i = 0; i < others.length; ++i) {
 				Point other = others[i];
 				double slope = origin.slopeTo(other);
+				if (slope == Double.NEGATIVE_INFINITY) {
+					continue;
+				}
 				if (slope == prev) {
 					++counter;
 				} else {
 					if (counter >= 3) {
 						Point[] pts = Arrays.copyOfRange(others, i-counter, i);
 						Point[] line = toLine(origin, pts);
-						lines.add(line);
+						int hash = toString(line).hashCode();
+						if (!hashes.contains(hash)) {
+							lines.add(line);
+							hashes.add(hash);
+						}
 					}
 					prev = slope;
 					counter = 1;
+				}
+				if (i + 1 == others.length && counter >= 3) {
+					Point[] pts = Arrays.copyOfRange(others, i-counter+1, i+1);
+					Point[] line = toLine(origin, pts);
+					int hash = toString(line).hashCode();
+					if (!hashes.contains(hash)) {
+						lines.add(line);
+						hashes.add(hash);
+					}
 				}
 			}
 		}

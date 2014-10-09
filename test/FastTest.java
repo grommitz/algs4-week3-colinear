@@ -36,15 +36,38 @@ public class FastTest extends TestBase {
 	@Test
 	public void testInput8() throws NumberFormatException, IOException {
 		using("input8.txt");
+		List<Point[]> lines = fast.findLines(points);
+		for (Point[] l : lines)
+			System.out.println(toString(l));
+		assertNumberOfLinesAndSpecificLineFound(lines, 2, input8line1());
+		assertNumberOfLinesAndSpecificLineFound(lines, 2, input8line2());
+	}
+	
+	@Test
+	public void testInput40() throws NumberFormatException, IOException {
+		using("input40.txt");
 		Point[] line = new Point[]{
+				new Point(1000, 17000), new Point(1000, 27000), new Point(1000, 28000), new Point(1000, 31000)};
+		List<Point[]> lines = fast.findLines(points);
+		for (Point[] l : lines)
+			System.out.println(toString(l));
+		assertNumberOfLinesAndSpecificLineFound(lines, 4, line);
+	}
+
+	private Point[] input8line1() {
+		return new Point[]{
 				new Point(10000, 0), 
 				new Point(7000, 3000), 
 				new Point(3000, 7000), 
 				new Point(0, 10000)};
-		List<Point[]> lines = fast.findLines(points);
-		for (Point[] l : lines)
-			System.out.println(toString(l));
-		assertNumberOfLinesAndSpecificLineFound(lines, 1, line);
 	}
 
+	private Point[] input8line2() {
+		return new Point[]{
+				new Point(3000, 4000), 
+				new Point(6000, 7000), 
+				new Point(14000, 15000), 
+				new Point(20000, 21000)};
+	}
+	
 }
